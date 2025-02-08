@@ -100,3 +100,18 @@ exports.logoutUser = async (req, res) => {
       .send({ msg: "Something went wrong while logging out", error: error });
   }
 };
+
+exports.userInfo = async (req, res) => {
+  try {
+
+    const user = await User.findOne({email: req.body.email})
+
+    if( !user ){
+      return res.status(404).send({ message: "Unauthorized access", success: false })
+    }
+    return res.status(200).send({ success: true, data: user })
+    
+  } catch (error) {
+    return res.status(500).send({ message: "Internal server error", success: false, error })
+  }
+}

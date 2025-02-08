@@ -27,7 +27,7 @@ export default function Home() {
         "https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg?auto=compress&cs=tinysrgb&w=600",
       text: "Access your student profile and manage your account.",
       button: "View Profile",
-      action: () => navigate("/user"),
+      action: () => navigate("/"),
     },
     {
       title: "Only Librarian use",
@@ -35,7 +35,7 @@ export default function Home() {
         "https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg?auto=compress&cs=tinysrgb&w=600",
       text: "Librarian-only feature to add new books to the library.",
       button: "Librarian",
-      action: () => navigate("/librarian"),
+      action: () => navigate("/"),
     },
     {
       title: "Borrow Book",
@@ -43,7 +43,7 @@ export default function Home() {
         "https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&w=600",
       text: "Students can borrow books from the library collection.",
       button: "Borrow Book",
-      action: () => navigate("/borrowbook"),
+      action: () => navigate("/"),
     },
   ];
 

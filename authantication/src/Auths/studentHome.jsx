@@ -27,7 +27,7 @@ export default function BorrowBook() {
       const token = localStorage.getItem("authT");
       if (!token) return;
 
-      const res = await axios.get(`http://localhost:9000/all`, {
+      const res = await axios.get(`https://library-management-sys-1o9f.onrender.com/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -35,7 +35,7 @@ export default function BorrowBook() {
 
       // Fetch borrow records from backend
       const borrowedRes = await axios
-        .get(`http://localhost:9000/borrowed-books`, {
+        .get(`https://library-management-sys-1o9f.onrender.com/borrowed-books`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .catch((error) => {
@@ -114,7 +114,7 @@ export default function BorrowBook() {
       }
 
       await axios.post(
-        `http://localhost:9000/borrowBook`,
+        `https://library-management-sys-1o9f.onrender.com/borrowBook`,
         { bookId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -157,7 +157,7 @@ export default function BorrowBook() {
 
       // Verify the book is actually borrowed
       const resBorrowed = await axios
-        .get(`http://localhost:9000/borrowed-books`, {
+        .get(`https://library-management-sys-1o9f.onrender.com/borrowed-books`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .catch((error) => {
@@ -190,7 +190,7 @@ export default function BorrowBook() {
       }
 
       await axios.post(
-        `http://localhost:9000/returnBook`,
+        `https://library-management-sys-1o9f.onrender.com/returnBook`,
         { bookId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

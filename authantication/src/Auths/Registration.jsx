@@ -31,7 +31,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:9000/register`,
+        `https://library-management-sys-1o9f.onrender.com/register`,
         formData
       );
       toast({
@@ -99,7 +99,7 @@ export default function Register() {
             <Select name="role" value={formData.role} onChange={handleChange}>
               <option value="#">Select option</option>
               <option value="student">Student</option>
-              {/* <option value="librarian">Librarian</option> */}
+              <option value="librarian">Librarian</option>
             </Select>
           </FormControl>
           <Button type="submit" colorScheme="teal" width="full">

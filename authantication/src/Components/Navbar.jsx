@@ -1,5 +1,10 @@
-import React from "react";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import {
+  NavLink,
+  useNavigate,
+  Link,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import {
   Box,
   Flex,
@@ -14,15 +19,46 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const location = useLocation();
+  console.log(location);
+  let email = location.state;
+  // const email = location.state.email;
   const { isOpen, onToggle } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
 
   const isLoggedIn = !!localStorage.getItem("authT");
-  const userRole = localStorage.getItem("role");
+  // const userRole = localStorage.getItem("role");
+
+  const [userInfo, setUserInfo] = useState([]);
+
+  const getUserInfo = async () => {
+    const token = localStorage.getItem("authT");
+    try {
+      const response = await axios.post(
+        `http://localhost:9000/get-user-info-by-id`,
+        { email: email },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      // console.log(response.data.data)   
+
+      if (response.success) {
+        setUserInfo(response.data.data);
+      } else {
+        // toast.error(response.data.message);
+        console.log(response.data);
+      }
+    } catch (error) {
+      // toast.error("Error in navbar page");
+      console.log(error);
+    }
+  };
+
+  // console.log(userInfo);
 
   const handleLogout = async () => {
     const token = localStorage.getItem("authT");
@@ -93,9 +129,15 @@ const Navbar = () => {
     },
   ];
 
-  if (!isLoggedIn) {
-    return null;
-  }
+  // if (!isLoggedIn) {
+  //   return <Navigate to="/login" replace={true} />;
+  // }
+
+  useEffect(() => {
+    if(location){
+      getUserInfo()
+    }
+  }, []);
 
   return (
     <Box
@@ -118,7 +160,7 @@ const Navbar = () => {
           colorScheme="teal"
         />
         <Flex alignItems="center" display={{ base: "none", md: "flex" }}>
-          {userRole === "librarian" &&
+          {userInfo.role === "librarian" &&
             librarianLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -136,7 +178,7 @@ const Navbar = () => {
                 </Text>
               </NavLink>
             ))}
-          {userRole === "student" &&
+          {userInfo.role === "student" &&
             studentLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -171,7 +213,7 @@ const Navbar = () => {
 
       <Collapse in={isOpen} animateOpacity>
         <Stack bg="teal.500" p={4} display={{ md: "none" }} textAlign={"right"}>
-          {userRole === "librarian" &&
+          {userInfo.role === "librarian" &&
             librarianLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -189,7 +231,7 @@ const Navbar = () => {
                 </Text>
               </NavLink>
             ))}
-          {userRole === "student" &&
+          { userInfo.role=== "student" &&
             studentLinks.map((link) => (
               <NavLink
                 key={link.path}

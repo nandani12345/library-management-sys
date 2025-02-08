@@ -8,19 +8,15 @@ import {
   FormLabel,
   Input,
   Heading,
-  Text,
   VStack,
   useToast,
   useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   Avatar,
-  AvatarGroup,
 } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,7 +36,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:9000/login",
+        "https://library-management-sys-1o9f.onrender.com/login",
         formData
       );
       const { token } = response.data;
@@ -49,7 +45,7 @@ export default function Login() {
       // console.log("Token stored:", token);
 
       setFormData({ email: "", password: "" });
-      navigate("/");
+      navigate("/", {state: formData.email});
 
       // console.log(response);
 

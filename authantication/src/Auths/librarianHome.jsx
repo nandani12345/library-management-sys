@@ -32,7 +32,6 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -65,7 +64,7 @@ export default function LibrarianPanel() {
 
   const fetchAllBooks = async () => {
     try {
-      const res = await axios.get(`http://localhost:9000/all`);
+      const res = await axios.get(`https://library-management-sys-1o9f.onrender.com/all`);
       setBooks(res.data.book);
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -109,7 +108,7 @@ export default function LibrarianPanel() {
         throw new Error("No book selected for deletion.");
       }
 
-      await axios.delete(`http://localhost:9000/${selectedBookId}`, {
+      await axios.delete(`https://library-management-sys-1o9f.onrender.com/${selectedBookId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -146,7 +145,7 @@ export default function LibrarianPanel() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("authT");
-      const res = await axios.put(`http://localhost:9000/${bookID}`, bookData, {
+      const res = await axios.put(`https://library-management-sys-1o9f.onrender.com/${bookID}`, bookData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -180,7 +179,7 @@ export default function LibrarianPanel() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("authT");
-      const res = await axios.post(`http://localhost:9000/add`, bookData, {
+      const res = await axios.post(`https://library-management-sys-1o9f.onrender.com/add`, bookData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast({

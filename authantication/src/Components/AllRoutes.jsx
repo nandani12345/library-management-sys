@@ -5,10 +5,12 @@ import Login from "../Auths/login";
 import Details from "../Book/Details";
 import LibrarianPanel from "../Auths/librarianHome";
 import StudentHome from "../Auths/studentHome";
+import Register from "../Auths/Registration";
 export default function AllRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register/>} />
       <Route path="/" element={<Home />} />
       <Route path="/bookDetails" element={<Details />} />{" "}
       <Route path="/librarian" element={<LibrarianPanel />} />
