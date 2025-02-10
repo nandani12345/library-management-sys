@@ -33,7 +33,7 @@ const Navbar = () => {
     const token = localStorage.getItem("authT");
     try {
       const response = await axios.post(
-        `http://localhost:9000/get-user-info-by-id`,
+        `https://library-management-sys-1o9f.onrender.com/get-user-info-by-id`,
         { email: email },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -42,7 +42,7 @@ const Navbar = () => {
         setUserInfo(response.data.data);
       } else {
         toast({
-          title: "Error 0",
+          title: "Error",
           description: response.data.message,
           status: "error",
           duration: 5000,
@@ -51,7 +51,7 @@ const Navbar = () => {
       }
     } catch (error) {
       toast({
-        title: "Error 1",
+        title: "Error",
         description: "Error in getting user information",
         status: "error",
         duration: 5000,
@@ -75,7 +75,7 @@ const Navbar = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:9000/logout`, {
+      const response = await axios.get(`https://library-management-sys-1o9f.onrender.com/logout`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

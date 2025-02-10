@@ -18,6 +18,10 @@ let userSchema = mongoose.Schema({
         type:String,
         enum:["student","librarian"],
         default:"student"
+    },
+    token: {
+        type: String,
+        default: null
     }
 }, {versionKey:false, timestamps: true})
 

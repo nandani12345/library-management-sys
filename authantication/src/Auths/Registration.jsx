@@ -31,7 +31,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://library-management-sys-1o9f.onrender.com/register`,
+        `http://localhost:9000/register`,
         formData
       );
       toast({

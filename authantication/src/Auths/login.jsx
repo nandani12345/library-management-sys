@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Registration from "../Auths/Registration";
+import ForgetPassword from "../Auths/forget";
 import axios from "axios";
 import {
   Box,
@@ -18,7 +19,7 @@ import {
   ModalBody,
   Avatar,
 } from "@chakra-ui/react";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser   } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -41,7 +42,7 @@ export default function Login() {
       );
       const { token } = response.data;
       localStorage.setItem("authT", token);
-      localStorage.setItem("role", response.data.role);
+      localStorage.setItem("role", response.data.role);                                                                                 
       // console.log("Token stored:", token);
 
       setFormData({ email: "", password: "" });
@@ -67,6 +68,10 @@ export default function Login() {
     }
   };
 
+  const handleForgetPassword = () => {
+    navigate("/forget");
+  };
+
   return (
     <Box
       w="full"
@@ -82,7 +87,7 @@ export default function Login() {
       bgGradient="linear(to-r, gray.300, yellow.400, pink.200)"
     >
       <Heading as="h2" size="lg" mb={5} textAlign="center">
-        Login <Avatar bg="red.500" icon={<AiOutlineUser fontSize="1.5rem" />} />
+        Login <Avatar bg="red.500" icon={<AiOutlineUser   fontSize="1.5rem" />} />
       </Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
@@ -112,7 +117,7 @@ export default function Login() {
         </VStack>
       </form>
       <Link onClick={onOpen}>Register</Link>
-      <Link style={{ marginLeft: "10px" }}>Already have an account</Link>
+      <span style={{ marginLeft: "10px", cursor: "pointer" }} onClick={handleForgetPassword}>forget-Password</span>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -125,4 +130,4 @@ export default function Login() {
       </Modal>
     </Box>
   );
-}
+};

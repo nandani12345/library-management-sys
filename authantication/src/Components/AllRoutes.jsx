@@ -6,6 +6,7 @@ import Details from "../Book/Details";
 import LibrarianPanel from "../Auths/librarianHome";
 import StudentHome from "../Auths/studentHome";
 import Register from "../Auths/Registration";
+import ForgetPassword from "../Auths/forget";
 export default function AllRoutes() {
   return (
     <Routes>
@@ -15,6 +16,7 @@ export default function AllRoutes() {
       <Route path="/bookDetails" element={<Details />} />{" "}
       <Route path="/librarian" element={<LibrarianPanel />} />
       <Route path="/student" element={<StudentHome />} />
+      <Route path="/forget" element={<ForgetPassword />} />
     </Routes>
   );
 }
