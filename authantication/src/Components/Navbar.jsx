@@ -1,8 +1,6 @@
 import {
   NavLink,
   useNavigate,
-  Link,
-  Navigate,
   useLocation,
 } from "react-router-dom";
 import {
@@ -23,16 +21,11 @@ import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const location = useLocation();
-  console.log(location);
   let email = location.state;
-  // const email = location.state.email;
   const { isOpen, onToggle } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
-
-  const isLoggedIn = !!localStorage.getItem("authT");
-  // const userRole = localStorage.getItem("role");
 
   const [userInfo, setUserInfo] = useState([]);
 
@@ -44,21 +37,28 @@ const Navbar = () => {
         { email: email },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // console.log(response.data.data)   
 
-      if (response.success) {
+      if (response.data.success) {
         setUserInfo(response.data.data);
       } else {
-        // toast.error(response.data.message);
-        console.log(response.data);
+        toast({
+          title: "Error 0",
+          description: response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      // toast.error("Error in navbar page");
-      console.log(error);
+      toast({
+        title: "Error 1",
+        description: "Error in getting user information",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
-
-  // console.log(userInfo);
 
   const handleLogout = async () => {
     const token = localStorage.getItem("authT");
@@ -129,14 +129,15 @@ const Navbar = () => {
     },
   ];
 
-  // if (!isLoggedIn) {
-  //   return <Navigate to="/login" replace={true} />;
-  // }
+  const navigateUser = async () => {
+    if(!localStorage.getItem("authT")){
+      navigate("/login")
+    }
+  }
 
   useEffect(() => {
-    if(location){
-      getUserInfo()
-    }
+    getUserInfo();
+    navigateUser()
   }, []);
 
   return (
@@ -231,7 +232,7 @@ const Navbar = () => {
                 </Text>
               </NavLink>
             ))}
-          { userInfo.role=== "student" &&
+          {userInfo.role === "student" &&
             studentLinks.map((link) => (
               <NavLink
                 key={link.path}
